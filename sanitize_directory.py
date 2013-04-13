@@ -45,9 +45,12 @@ def main():
 
     for os_tup in os.walk(args.directory):
         (os_dir, os_dirs, os_files) = os_tup
-        in_dir = os.path.basename(os_dir)
-        san_dir = sanitize.sanitize_filename(in_dir, args.filesystem)
-        out_dir = os.path.join(os.path.dirname(os_dir), san_dir)
+
+        all_dirs = os_dir.split(os.path.sep)
+        out_dir = ''
+        for der in all_dirs:
+            san_dir = sanitize.sanitize_filename(der, args.filesystem)
+            out_dir = os.path.join(out_dir, san_dir)
 
         # rename directory
         if not args.testdir:
