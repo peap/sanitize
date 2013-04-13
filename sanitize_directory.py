@@ -59,7 +59,7 @@ def main():
                 os.rename(os_dir, out_dir)
         else:
             final_dir = os.path.join(basedir, out_dir)
-            os.makedirs(final_dir)
+            os.makedirs(final_dir, exist_ok=True)
 
         # print
         if args.verbose:
