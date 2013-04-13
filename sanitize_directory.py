@@ -48,6 +48,9 @@ def main():
         in_dir = os.path.basename(os_dir)
         san_dir = sanitize.sanitize_filename(in_dir, args.filesystem)
         out_dir = os.path.join(os.path.dirname(os_dir), san_dir)
+        if args.testdir:
+            final_dir = os.path.join(basedir, out_dir)
+            os.mkdir(final_dir)
         if args.verbose:
             sys.stdout.write('+--------------------------------------\n')
             sys.stdout.write('| original:  {0}\n'.format(os_dir))
@@ -56,17 +59,17 @@ def main():
             in_file = os.path.join(out_dir, os_file)
             san_file = sanitize.sanitize_filename(os_file, args.filesystem)
             out_file = os.path.join(out_dir, san_file)
-            if args.verbose:
-                sys.stdout.write('+--------------------------------------\n')
-                sys.stdout.write('| original:  {0}\n'.format(in_file))
-                sys.stdout.write('| sanitized: {0}\n'.format(out_file))
             if not args.testdir:
                 pass
                 #os.rename(in_file, out_file)
             else:
-                final_file = os.path.join(basedir, final_file)
+                final_file = os.path.join(basedir, out_file)
                 f = open(final_file, 'w')
                 f.close()
+            if args.verbose:
+                sys.stdout.write('+--------------------------------------\n')
+                sys.stdout.write('| original:  {0}\n'.format(in_file))
+                sys.stdout.write('| sanitized: {0}\n'.format(out_file))
 
     if args.verbose:
         sys.stdout.write('+--------------------------------------\n')
