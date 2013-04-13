@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from . import sanitize
+from sanitize import sanitize
 
 def main():
     print('hi')
