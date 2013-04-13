@@ -54,7 +54,7 @@ def main():
 
         # rename directory
         if not args.testdir:
-            if in_dir != out_dir:
+            if os_dir != out_dir:
                 os.rename(in_dir, out_dir)
         else:
             final_dir = os.path.join(basedir, out_dir)
