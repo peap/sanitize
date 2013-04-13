@@ -37,6 +37,12 @@ def main():
         sys.stdout.write('Invalid file system.\n')
         return 1
 
+    # set output directory
+    if args.testdir:
+        basedir = args.testdir
+        if not os.path.exists(basedir):
+            os.mkdir(basedir)
+
     for os_tup in os.walk(args.directory):
         (os_dir, os_dirs, os_files) = os_tup
         in_dir = os.path.basename(os_dir)
@@ -48,13 +54,22 @@ def main():
             sys.stdout.write('| sanitized: {0}\n'.format(out_dir))
         for os_file in os_files:
             in_file = os.path.join(out_dir, os_file)
-            sanitized = sanitize.sanitize_filename(os_file, args.filesystem)
-            out_file = os.path.join(out_dir, sanitized)
+            san_file = sanitize.sanitize_filename(os_file, args.filesystem)
+            out_file = os.path.join(out_dir, san_file)
             if args.verbose:
                 sys.stdout.write('+--------------------------------------\n')
                 sys.stdout.write('| original:  {0}\n'.format(in_file))
                 sys.stdout.write('| sanitized: {0}\n'.format(out_file))
-    sys.stdout.write('+--------------------------------------\n')
+            if not args.testdir:
+                pass
+                #os.rename(in_file, out_file)
+            else:
+                final_file = os.path.join(basedir, final_file)
+                f = open(final_file, 'w')
+                f.close()
+
+    if args.verbose:
+        sys.stdout.write('+--------------------------------------\n')
 
 if __name__ == '__main__':
     main()
