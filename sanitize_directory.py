@@ -43,8 +43,6 @@ def main():
             args.testdir,
             os.path.basename(args.directory.rstrip(os.path.sep))
         )
-        if not os.path.exists(basedir):
-            os.makedirs(basedir)
 
     for os_tup in os.walk(args.directory):
         (os_dir, os_dirs, os_files) = os_tup
@@ -61,7 +59,7 @@ def main():
                 os.rename(os_dir, out_dir)
         else:
             final_dir = os.path.join(basedir, out_dir)
-            os.mkdir(final_dir)
+            os.makedirs(final_dir)
 
         # print
         if args.verbose:
