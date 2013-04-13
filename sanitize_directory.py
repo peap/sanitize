@@ -8,13 +8,24 @@ from sanitize import sanitize
 
 def main():
     parser = argparse.ArgumentParser(
-        description='Sanitize filenames in a directory for a specific filesystem.')
-    parser.add_argument('directory', metavar='directory', type=str,
-                        help='directory to sanitize')
-    parser.add_argument('filesystem', metavar='filesystem', type=str,
-                        help='target filesystem for which to sanitize')
-    parser.add_argument('--match', metavar='match', type=str,
-                        help='optional regex against which to match filenames')
+        description='Sanitize filenames in a directory for a specific filesystem.'
+    )
+    parser.add_argument(
+        'directory', metavar='directory', type=str,
+        help='directory to sanitize'
+    )
+    parser.add_argument(
+        'filesystem', metavar='filesystem', type=str,
+        help='target filesystem for which to sanitize'
+    )
+    parser.add_argument(
+        '--testdir', metavar='testdir', type=str,
+        help='directory to place output (empty files), for testing'
+    )
+    parser.add_argument(
+        '--match', metavar='match', type=str,
+        help='optional regex against which to match filenames'
+    )
     args = parser.parse_args()
 
     if not args.filesystem in sanitize.FILE_SYSTEMS:
@@ -28,6 +39,7 @@ def main():
             sys.stdout.write('+--------------------------------------\n')
             sys.stdout.write('| original:  {0}\n'.format(os_file))
             sys.stdout.write('| sanitized: {0}\n'.format(sanitized))
+    sys.stdout.write('+--------------------------------------\n')
 
 if __name__ == '__main__':
     main()
