@@ -35,11 +35,14 @@ def main():
     # check filesystem
     if not args.filesystem in sanitize.FILE_SYSTEMS:
         sys.stdout.write('Invalid file system.\n')
-        return 1
+        sys.exit(1)
 
     # set output directory
     if args.testdir:
-        basedir = os.path.join(args.testdir, os.path.basename(args.directory))
+        basedir = os.path.join(
+            args.testdir,
+            os.path.basename(args.directory.rstrip(os.path.sep))
+        )
         if not os.path.exists(basedir):
             os.mkdir(basedir)
 
