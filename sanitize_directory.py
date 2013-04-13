@@ -44,7 +44,7 @@ def main():
             os.path.basename(args.directory.rstrip(os.path.sep))
         )
         if not os.path.exists(basedir):
-            os.mkdir(basedir)
+            os.makedirs(basedir)
 
     for os_tup in os.walk(args.directory):
         (os_dir, os_dirs, os_files) = os_tup
