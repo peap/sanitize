@@ -39,7 +39,7 @@ def main():
 
     # set output directory
     if args.testdir:
-        basedir = args.testdir
+        basedir = os.path.join(args.testdir, os.path.basename(args.directory))
         if not os.path.exists(basedir):
             os.mkdir(basedir)
 
